@@ -26,9 +26,11 @@ class FizzBuzz
       end
 
       puts new(options[:fizz_divider], options[:buzz_divider]).count(options[:until])
+      exit 0
     rescue => e
-      puts e
+      $stderr.puts e
       puts parser
+      exit 1
     end
   end
 
