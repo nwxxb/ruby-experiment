@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative "../fizz_buzz.rb"
+
+FizzBuzz.start(ARGV)
