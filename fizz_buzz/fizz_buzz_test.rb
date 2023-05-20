@@ -1,3 +1,7 @@
+require 'simplecov'
+SimpleCov.start do
+  enable_coverage :branch
+end
 require 'minitest/autorun'
 require 'minitest/rg'
 require_relative './fizz_buzz'
