@@ -31,6 +31,7 @@ class TicTacToeTest < Minitest::Test
       +-+-+-+
     BOARD
 
+    assert_nil ttt.find_winner
     assert_equal expected_board, ttt.render
   end
 
@@ -99,6 +100,7 @@ class TicTacToeTest < Minitest::Test
       +-+-+-+
     BOARD
 
+    assert_nil ttt.find_winner
     assert_equal expected_board, ttt.render
   end
 

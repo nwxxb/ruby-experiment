@@ -69,7 +69,7 @@ class TicTacToe
     win_positions.each do |win_position|
       judge_arr = win_position.map do |position|
         get_symbol(position)
-      end.compact.uniq
+      end.uniq
 
       if judge_arr.length == 1 && judge_arr.first == @first_player
         return @first_player
@@ -79,6 +79,8 @@ class TicTacToe
         next
       end
     end
+
+    return nil
   end
 
   def get_actual_position(position)
