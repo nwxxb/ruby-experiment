@@ -33,28 +33,31 @@ class TicTacToe
         [3, 5, 7],
       ]
 
-      map_str = win_conditions.flatten.map do |position|
-        current_row, current_col = case position
-                   when 1 then [0, 0]
-                   when 2 then [0, 1]
-                   when 3 then [0, 2]
-                   when 4 then [1, 0]
-                   when 5 then [1, 1]
-                   when 6 then [1, 2]
-                   when 7 then [2, 0]
-                   when 8 then [2, 1]
-                   when 9 then [2, 2]
-                   end
-        board_data[current_row][current_col]
-      end.join
+      winner = nil
+      win_conditions.each do |positions|
+        str_result = positions.reduce('') do |result, position|
+          current_row, current_col = case position
+                     when 1 then [0, 0]
+                     when 2 then [0, 1]
+                     when 3 then [0, 2]
+                     when 4 then [1, 0]
+                     when 5 then [1, 1]
+                     when 6 then [1, 2]
+                     when 7 then [2, 0]
+                     when 8 then [2, 1]
+                     when 9 then [2, 2]
+                     end
+          result += board_data[current_row][current_col]
+        end
 
-      winner = if map_str.include?(options[:first_player] * 3)
-                 options[:first_player]
-               elsif map_str.include?(options[:second_player] * 3)
-                 options[:second_player]
-               else
-                 nil
-               end
+        if str_result == (options[:first_player] * 3)
+          winner = options[:first_player]
+          break
+        elsif str_result == (options[:second_player] * 3)
+          winner = options[:second_player]
+          break
+        end
+      end
 
       if winner
         puts "#{winner} Win!"
@@ -74,6 +77,7 @@ class TicTacToe
                  when 8 then [2, 1]
                  when 9 then [2, 2]
                  end
+
       if step.to_i.between?(1, 9) && board_data[row][col] == ' '
         board_data[row][col] = current_symbol
         count = count + 1
@@ -90,5 +94,3 @@ class TicTacToe
 
   end
 end
-
-TicTacToe.cli_start(ARGV)
