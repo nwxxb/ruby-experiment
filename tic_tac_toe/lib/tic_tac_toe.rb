@@ -1,5 +1,4 @@
 require 'optparse'
-require 'pry'
 
 class TicTacToe
   def self.cli_start(args)
