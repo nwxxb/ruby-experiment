@@ -59,7 +59,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board)
+    assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
   end
 
   def test_another_first_move
@@ -92,11 +92,50 @@ class TicTacToeTest < Minitest::Test
       +-+-+-+
     BOARD
 
-    out, err = IoTestHelpers.simulate_io(1) do
+    out, err = IoTestHelpers.simulate_io(9) do
       args = ["-f", "X", "--second=O"]
       TicTacToe.cli_start(args)
     end
 
     assert out.include?(expected_board)
+  end
+
+  def test_yet_another_first_move
+    expected_board = <<~BOARD
+      +-+-+-+
+      | | | |
+      +-+-+-+
+      | |O| |
+      +-+-+-+
+      | | | |
+      +-+-+-+
+    BOARD
+
+    out, err = IoTestHelpers.simulate_io(5) do
+      args = ["-f", "O", "--second=X"]
+      TicTacToe.cli_start(args)
+    end
+
+    assert out.include?(expected_board)
+  end
+
+  def test_second_move
+    skip
+    expected_board = <<~BOARD
+      +-+-+-+
+      |X| | |
+      +-+-+-+
+      | |O| |
+      +-+-+-+
+      | | | |
+      +-+-+-+
+    BOARD
+
+    out, err = IoTestHelpers.simulate_io(5, 1) do
+      args = ["-f", "O", "--second=X"]
+      TicTacToe.cli_start(args)
+    end
+
+    assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
   end
 end
