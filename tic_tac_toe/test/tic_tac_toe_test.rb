@@ -120,7 +120,6 @@ class TicTacToeTest < Minitest::Test
   end
 
   def test_second_move
-    skip
     expected_board = <<~BOARD
       +-+-+-+
       |X| | |
@@ -137,5 +136,81 @@ class TicTacToeTest < Minitest::Test
     end
 
     assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
+  end
+
+  def test_another_second_move
+    expected_board = <<~BOARD
+      +-+-+-+
+      | | |X|
+      +-+-+-+
+      | |O| |
+      +-+-+-+
+      | | | |
+      +-+-+-+
+    BOARD
+
+    out, err = IoTestHelpers.simulate_io(5, 3) do
+      args = ["-f", "O", "--second=X"]
+      TicTacToe.cli_start(args)
+    end
+
+    assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
+  end
+
+  def test_third_move
+    expected_board = <<~BOARD
+      +-+-+-+
+      |O| |X|
+      +-+-+-+
+      | |O| |
+      +-+-+-+
+      | | | |
+      +-+-+-+
+    BOARD
+
+    out, err = IoTestHelpers.simulate_io(5, 3, 1) do
+      args = ["-f", "O", "--second=X"]
+      TicTacToe.cli_start(args)
+    end
+
+    assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
+  end
+
+  def test_cannot_take_same_position
+    out, err = IoTestHelpers.simulate_io(5, 3, 3) do
+      args = ["-f", "O", "--second=X"]
+      TicTacToe.cli_start(args)
+    end
+
+    assert out.include?("can't take filled cell")
+  end
+
+  def test_invalid_input
+    out, err = IoTestHelpers.simulate_io(5, 3, 'aflj') do
+      args = ["-f", "O", "--second=X"]
+      TicTacToe.cli_start(args)
+    end
+
+    assert out.include?("invalid input")
+  end
+
+  def test_get_winner
+    unexpected_board = <<~BOARD
+      +-+-+-+
+      |X|X|X|
+      +-+-+-+
+      |O|O|O|
+      +-+-+-+
+      | | | |
+      +-+-+-+
+    BOARD
+
+    out, err = IoTestHelpers.simulate_io(4, 1, 5, 2, 6, 7) do
+      args = ["-f", "O", "--second=X"]
+      TicTacToe.cli_start(args)
+    end
+
+    assert out.include?("O Win!")
+    assert !out.include?(unexpected_board)
   end
 end
