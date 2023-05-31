@@ -40,7 +40,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board)
+    assert_includes(out, expected_board)
   end
 
   def test_first_move
@@ -59,7 +59,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
+    assert_includes(out, expected_board)
   end
 
   def test_another_first_move
@@ -78,7 +78,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board)
+    assert_includes(out, expected_board)
   end
 
   def test_another_first_move
@@ -97,7 +97,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board)
+    assert_includes(out, expected_board)
   end
 
   def test_yet_another_first_move
@@ -116,7 +116,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board)
+    assert_includes(out, expected_board)
   end
 
   def test_second_move
@@ -135,7 +135,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
+    assert_includes(out, expected_board)
   end
 
   def test_another_second_move
@@ -154,7 +154,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
+    assert_includes(out, expected_board)
   end
 
   def test_third_move
@@ -173,7 +173,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?(expected_board), "\nout:\n#{out}\nexpected_board:\n#{expected_board}\n"
+    assert_includes(out, expected_board)
   end
 
   def test_cannot_take_same_position
@@ -182,7 +182,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?("can't take filled cell")
+    assert_includes(out, "can't take filled cell")
   end
 
   def test_invalid_input
@@ -191,7 +191,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?("invalid input")
+    assert_includes(out, "invalid input")
   end
 
   def test_get_winner
@@ -210,7 +210,7 @@ class TicTacToeTest < Minitest::Test
       TicTacToe.cli_start(args)
     end
 
-    assert out.include?("O Win!")
-    assert !out.include?(unexpected_board)
+    assert_includes(out, "O Win!")
+    refute_includes(out, unexpected_board)
   end
 end
